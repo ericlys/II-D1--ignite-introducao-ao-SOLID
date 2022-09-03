@@ -1,0 +1,125 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "II-D1-Ignite-SOLID Documentation",
+    "description": "This is a user registration API",
+    "version": "1.0.0",
+    "contract": {
+      "email": "ericlysm@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Create a user",
+        "description": "Create a new category",
+        "requestBody": {
+          "description": "Mandatory field for user creation",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "Ericlys Moreira",
+                "email": "oi@rocketseat.com.br"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Operation performed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "ec7b5377-f304-4760-b627-85891674142a",
+                  "admin": false,
+                  "name": "Ericlys Moreira",
+                  "email": "oi@rocketseat.com.br",
+                  "created_at": "2022-09-03T03:35:14.796Z",
+                  "updated_at": "2022-09-03T03:35:14.796Z"
+                }
+              }
+            }
+          }, 
+          "400": {
+            "description": "User already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }, 
+                "example": {
+                  "error": "User already exists."
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["users"],
+        "summary": "Return users",
+        "description": "Only ``admin`` user can access",
+        "parameters": [
+          {
+            "name": "user_id", 
+            "in": "header", 
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operation performed successfully"
+          }, 
+          "400": {
+            "description": "User already exists!"
+          }
+        }
+      }
+    }
+  }
+}
